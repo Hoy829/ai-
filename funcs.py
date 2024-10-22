@@ -192,6 +192,35 @@ def calculate_whtR_category(gender,waist,height):
                 else:
                     return 5
                 
+def cal_waist_ideal(height, gender,inch):
+    """
+    주어진 신장(cm)과 성별에 따라 이상적인 허리둘레 범위를 계산하는 함수입니다.
+
+    Parameters:
+        height_cm (float): 신장(cm)
+        gender (str): 성별 ("남자" 또는 "여자")
+
+    Returns:
+        tuple: (최소 허리둘레(cm), 최대 허리둘레(cm))
+    """
+    if gender == "남성":
+        WHtR_min = 0.43
+        WHtR_max = 0.50
+    elif gender == "여성":
+        WHtR_min = 0.42
+        WHtR_max = 0.47
+    else:
+        raise ValueError("성별은 '남자' 또는 '여자'로 입력해주세요.")
+
+    if inch == True:
+        waist_min = height * WHtR_min / 2.54
+        waist_max = height * WHtR_max / 2.54
+    else:
+        waist_min = height * WHtR_min
+        waist_max = height * WHtR_max
+
+    return {'waist_min': waist_min, 'waist_max': waist_max}
+                
 # model 결과 선택 함수
 def model_result(model):
         if model == 'Logistic Regression':
@@ -359,3 +388,90 @@ def model_result_hyper(model):
             with col4:
                 st.markdown('#####  Learning Curve')
                 st.image('./data/results/xg/hyper/xghyper4.png')
+                
+                
+
+# 22년도 데이터 검증
+def test22(model):
+        if model == 'Logistic Regression':
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('##### Confusion Matrix')
+                st.image('./data/results/logi/testresult/logitest1.png')
+            with col2:
+                st.markdown('##### Classification Report')
+                st.image('./data/results/logi/testresult/logitest2.png')
+            col3,col4 = st.columns(2)
+            with col3:
+                st.markdown('#####  ROC Curve')
+                st.image('./data/results/logi/testresult/logitest3.png')
+            with col4:
+                st.markdown('##### Accuracy')
+                st.markdown('### 점수: 72.43점')
+        
+        elif model == 'SVM':
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('##### Confusion Matrix')
+                st.image('./data/results/svm/testresult/svmtest1.png')
+            with col2:
+                st.markdown('##### Classification Report')
+                st.image('./data/results/svm/testresult/svmtest2.png')
+            col3,col4 = st.columns(2)
+            with col3:
+                st.markdown('#####  ROC Curve')
+                st.image('./data/results/svm/testresult/svmtest3.png')
+            with col4:
+                st.markdown('##### Accuracy')
+                st.markdown('### 점수: 73.41점')
+
+        
+        elif model == 'LGBM':
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('##### Confusion Matrix')
+                st.image('./data/results/lgbm/testresult/lgbmtest1.png')
+            with col2:
+                st.markdown('##### Classification Report')
+                st.image('./data/results/lgbm/testresult/lgbmtest2.png')
+            col3,col4 = st.columns(2)
+            with col3:
+                st.markdown('#####  ROC Curve')
+                st.image('./data/results/lgbm/testresult/lgbmtest3.png')
+            with col4:
+                st.markdown('##### Accuracy')
+                st.markdown('### 점수: 61.76점')
+        
+
+        elif model == 'Random Forest':
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('##### Confusion Matrix')
+                st.image('./data/results/rb/testresult/rbtest1.png')
+            with col2:
+                st.markdown('##### Classification Report')
+                st.image('./data/results/rb/testresult/rbtest2.png')
+            col3,col4 = st.columns(2)
+            with col3:
+                st.markdown('#####  ROC Curve')
+                st.image('./data/results/rb/testresult/rbtest3.png')
+            with col4:
+                st.markdown('##### Accuracy')
+                st.markdown('### 점수: 72.00점')
+        
+        elif model == 'xg':
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('##### Confusion Matrix')
+                st.image('./data/results/xg/testresult/xgtest1.png')
+            with col2:
+                st.markdown('##### Classification Report')
+                st.image('./data/results/xg/testresult/xgtest2.png')
+            col3,col4 = st.columns(2)
+            with col3:
+                st.markdown('#####  ROC Curve')
+                st.image('./data/results/xg/testresult/xgtest3.png')
+            with col4:
+                st.markdown('##### Accuracy')
+                st.markdown('### 점수: 61.27점')
+                

@@ -39,8 +39,10 @@ def dashboard_page():
                     <span style="font-size: 18px; font-weight: bold;">Train</span>
                 </div>
                 <div style="margin-top: -20px;">
-                    <span style="color:#beef69; font-size: 30px; font-weight: bold;">{len(df1)} 명</span>
+                    <span style="color:#beef69; font-size: 25px; font-weight: bold;">11756명</span>
+                    <span style="color:#a0daa9; font-size: 13px;">전처리전:{len(df1)} 명</span>
                 </div>
+                
                 """,unsafe_allow_html=True)
         with col2:
             st.markdown(f"""
@@ -48,15 +50,15 @@ def dashboard_page():
                     <span style="font-size: 18px; font-weight: bold;">Test</span>
                 </div>
                 <div style="margin-top: -20px;">
-                    <span style="color:#ed7777; font-size: 30px; font-weight: bold;">{len(df2)} 명</span>
+                    <span style="color:#ed7777; font-size: 25px; font-weight: bold;">{len(df2)} 명</span>
                 </div>
                 """, unsafe_allow_html=True)
 
     with b:
         st.markdown('##### 데이터 나이 스펙트럼' ,help='성인(만19세이상)과 80미만으로 구성(80+는 분류가 되어있지 않았습니다.)')
         st.markdown(f"""
-            <div style="margin-top: 10px; font-weight: bold;">
-                <span style=font-size:30px; ">19세~79세</span>
+            <div style="margin-top: -10px; font-weight: bold;">
+                <span style=font-size:25px; ">19세~79세</span>
             </div>
         """, unsafe_allow_html=True)
     with c:
@@ -65,22 +67,22 @@ def dashboard_page():
         ratio = (count_1 / count_0)*100
         st.markdown('##### 총 고혈압환자의 비율' ,help='Train 데이터 기준 Target칼럼 속 1(고혈압 있음) 나누기 0(고혈압 없음) 사람 수를 나누었습니다.')
         st.markdown(f"""
-            <div style="margin-top: 10px; font-weight: bold;">
-                <span style=font-size:30px; ">{ratio:.2f}%</span>
+            <div style="margin-top: -10px; font-weight: bold;">
+                <span style=font-size:25px; ">{ratio:.2f}%</span>
             </div>
         """, unsafe_allow_html=True)
     with d:
         st.markdown('##### 총 사용된 칼럼 수' ,help='사용된 칼럼의: 1.만나이/2.체중/3.WhTR카테고리/4.성별/5.당뇨병유병여부/6.이상지질혈증여부/7.음주점수/8.신체활동점수')
         st.markdown(f"""
             <div style="margin-top: 10px; font-weight: bold;">
-                <span style=font-size:30px; ">8개</span>
+                <span style=font-size:25px; ">8개</span>
             </div>
         """, unsafe_allow_html=True)
     with e:
         st.markdown('##### 국건영 데이터 기반 추가 데이터' ,help='가지고 있는 데이터셋을 기반으로 설문칼럼 또는 신체정보를 이용해 새로운 지표를 추가했습니다.')
         st.markdown('###### *Whtr카테고리*' ,help='Whtr은 성별+신장+허리둘레로 BMI계산보다 신뢰도가 높습니다.')
         st.markdown('###### *신체 활동 점수*' ,help='고강도 운동,중강도 운동,유산소 활동에 대한 설문 칼럼을 이용하여 신체활동에 대한 지표를 나타냈습니다. 추가로 성별에 따라서 점수에 대한 계산방식을 다르게 적용했습니다.')
-        st.markdown('###### *국건영 데이터 기반 추가 데이터*' ,help='음주 에 관련된 설문 칼럼을 이용해서 음주에 대한 점수화를 통해 새로운 지표를 구했습니다. 추가로 성별에 따라서 점수에 대한 계산방식을 다르게 적용했습니다.')
+        st.markdown('###### *음주 점수*' ,help='음주 에 관련된 설문 칼럼을 이용해서 음주에 대한 점수화를 통해 새로운 지표를 구했습니다. 추가로 성별에 따라서 점수에 대한 계산방식을 다르게 적용했습니다.')
 # 두 개의 데이터셋 로드
     df_train = csv(what='train')
     df_test = csv(what='test')

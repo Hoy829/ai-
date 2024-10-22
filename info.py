@@ -2,15 +2,59 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 from funcs import load_css, load_local_font, linegaro
-
+import requests
 
 def info_page():
+
+    st.sidebar.markdown(
+    """
+    <div style="border-top: 3px solid #3F5277; width: 100%;"></div>
+    """,
+    unsafe_allow_html=True)
+    st.sidebar.markdown('<p style="font-size: 15px; color:rgba(246,244,241,1);"> 🤙 You can contact us with</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p style="font-size: 13px; color:rgba(253,250,241,1);"> 김현빈</br>hb000122@gmail.com </p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p style="font-size: 13px; color:rgba(253,250,241,1);"> 이정화</br>happychristmas1995@gmail.com</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p style="font-size: 13px; color:rgba(253,250,241,1);"> 신상길</br>tkdrlfdk920@gmail.com</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p style="font-size: 13px; color:rgba(253,250,241,1);"> 정다운</br>jdu1941@gmail.com</p>', unsafe_allow_html=True)
+    st.sidebar.markdown("")
+    st.sidebar.markdown(
+        """
+        <div align="center">
+            <p style="font-size: 17px; color:rgba(246,244,241,1); margin-bottom: 0px;">Total views</p>
+            <a href="https://www.cutercounter.com/" target="_blank">
+                <img src="https://www.cutercounter.com/hits.php?id=huxqdpfk&nd=6&style=13" border="0" alt="hit counter">
+            </a>
+        </div>
+        """, 
+        unsafe_allow_html=True)
+
     logo = Image.open('./data/image/Teamicon-removebg-preview.png')
-    a,b = st.columns([1,7])
+    a,b,c= st.columns([1,7,2])
     with a:
         st.image('./data/image/temp_logo2-removebg-preview.png')
     with b:
         st.title('PROJECT : 고혈압 예측모델')
+    with c:
+        # GitHub API를 사용하여 리포지토리 정보 가져오기
+        repo_owner = "bunhine0452"
+        repo_name = "pressureproject"
+
+        # GitHub API 요청
+        url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
+        response = requests.get(url)
+        repo_info = response.json()
+
+        # 필요한 정보 추출
+        stars = repo_info.get("stargazers_count", 0)
+        forks = repo_info.get("forks_count", 0)
+        issues = repo_info.get("open_issues_count", 0)
+
+        # GitHub 정보 표시
+        st.markdown(f"[GitHub Repository](https://github.com/{repo_owner}/{repo_name})")
+        st.markdown(f"⭐ Stars: {stars}")
+        st.markdown(f"🍴 Forks: {forks}")
+        st.markdown(f"🐞 Open Issues: {issues}")
+    
     linegaro() 
     if 'count' not in st.session_state:
         st.session_state.count = 0
@@ -30,8 +74,8 @@ def info_page():
         st.write(
             """
             국민 건강 영양조사 원시데이터 자료를 분석하여 신체 데이터 및 설문 기반으로 여러 유사점을 찾고 분석한 이후 
-            선별된 요인들을 토대로 고혈압을 예측할 수 있는 모델을 만들고 설문 조사를 통해 고혈압 확률뿐만 아니라 
-            다양한 건강보고서를 통해 현재 자신의 신체 정보를 확인하며 여러 성인병을 예방할수 있는 방법을 제시하는 것이 
+            선별된 요인들을 토대로 고혈압을 예측할 수 있는 모델을 만들고 설문 조사를 받은 뒤 고혈압 확률뿐만 아니라 
+            다양한 건강 대시보드를 통해 현재 자신의 신체 정보를 확인하며 여러 성인병을 예방할수 있는 방법을 챗봇을 이용하여 제시하는 것이 
             이번 프로젝트의 궁극적인 주제와 목적입니다.         
             """
         )
@@ -40,7 +84,7 @@ def info_page():
             건강한 신체를 유지하며 성인병의 주된 원인이라고 자주 지목되는 고혈압을 
             “먼저 예방하는 것이 다양한 합병증을 예방할 수 있겠다” 라는 가설을 세우며 고혈압을 예방할 수 있는 모델을 만들게 되었습니다. 
             또한 자신의 생활 습관에 관한 설문과 자신이 알고 있는 신체 데이터를 통해서 고혈압 확률을 예측할 수 있도록 
-            모델을 설계하여 편리함과 정확성 둘 다 잡기 위해 노력했습니다.       
+            만들었고, 챗봇이 설문 결과에 따라서 알맞은 레시피를 추천할 수 있도록 노력하였습니다.      
             """
         )
         st.markdown('#####')
@@ -127,32 +171,34 @@ def info_page():
         a, b, c, d = st.columns([2, 2, 2, 2])
         with a:
            st.markdown('### 김현빈')
-           st.markdown('##### 프로젝트를 설계하는 데 있어,모든 작업 진행')
+           st.markdown('##### 모델 설계 및 챗봇 구현 및 streamlit 대시보드 구성')
            st.write(''' 
                     모델에 필요한 데이터를 다시 분석하기도 하고 다양한 모델 그리고 기법들을 활용하여 
                     지속적인 모니터링을 통해 서비스에 사용될 최종 모델을 만들었습니다. 
-                    또한 이를 근거로 제시할 수 있는 Streamlit을 이용하여 누구든지 이해가 가능한 수준의 방식으로 페이지를 구성하였습니다.
+                    또한 이를 근거로 제시할 수 있는 여러 데이터셋을 시각화 하였습니다.
                     추가로 설문을 받아서 본인이 동나이 및 성별 대 위치를 제시하여 고혈압에 얼마나 노출되어있는지 알 수 있도록 구현하였습니다. 
-                    
+                    챗봇구현에 기여하였습니다.
                     ''')
         with b:
            st.markdown('### 신상길')
-           st.markdown('##### 데이터 초기 이해와 분석과 데이터를 크롤링 및 검색')
+           st.markdown('##### 데이터 이해와 분석과 챗봇 데이터를 크롤링 및 검색')
            st.write(''' 
                     다양한 피처 엔지니어링 방법을 공부하였고, 국민 건강 영양조사 데이터와 저희 팀의 방향성에 맞는 
                     여러 머신러닝 모델을 돌려보았으며, 가설을 세워서 나름대로 모델 을 구현 해보기도했습니다.
                     그 뒤로는 데이터 전처리 이전 부분을 스트림릿으로 구현해보았습니다. 
-                    지금은 정화님이 기틀을 잡은 코드를 기반으로 OpenAI API를 통해 챗봇을 구현하고 있습니다. 
+                    지금은 정화님이 기틀을 잡은 코드를 기반으로 OpenAI API를 통해 챗봇을 구현하고 있습니다.
+                    또한 챗봇에 필요한 요리, 레시피 데이터를 전처리하였습니다.  
                     ''')
         with c:
            st.markdown('### 이정화')
-           st.markdown('##### 데이터 전처리와 및 모델링과 챗봇 구현 ')
+           st.markdown('##### 데이터 전처리와 및 모델링 챗봇 구현 및 Rag stramlit 구현 ')
            st.write('''
                     전처리 과정에서 컬럼 선택과 모델링에 적극적으로 참여하였습니다. 
-                    3차 프로젝트에서는 챗봇구현을 담당하였는데 먼저 주차별 식단 데이터를 정리하고 
+                    프로젝트에서는 챗봇구현을 담당하였는데 먼저 주차별 식단 데이터를 정리하고 
                     텍스트 청크로 분리하여 분석에 용이하도록 만들었습니다. 
                     이를 기반으로 임베딩과 벡터 스토어를 활용한 검색 시스템을 구축하여 
-                    사용자가 입력한 질의에 따라 맞춤형 식단을 추천하는 챗봇을 구현했습니다. 
+                    사용자가 입력한 질의에 따라 맞춤형 식단을 추천하는 챗봇을 구현했습니다.
+                    마지막으로 이를 보여줄수 있는 Rag streamlit 페이지를 만들었습니다.
                     ''')
         with d:
            st.markdown('### 정다운')
@@ -169,4 +215,16 @@ def info_page():
             st.markdown('#')
             st.markdown('#')   
             st.image('./data/image/logos.png')
+
+            st.markdown(
+                """
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                    <a href="https://highbloodpressure.streamlit.app" target="_blank" style="text-decoration: none;">
+                        <div style="display: inline-block; padding: 10px 20px; background-color: rgb(83, 100, 147); color: white; border-radius: 5px; text-align: center; font-weight: bold;">
+                            챗봇 모델 보러가기
+                        </div>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True)
         
